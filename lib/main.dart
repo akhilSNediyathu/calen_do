@@ -7,7 +7,7 @@ import 'repositories/task_repository.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();  // Initialize Firebase
+  await Firebase.initializeApp(); // Initialize Firebase
   runApp(const MyApp());
 }
 
@@ -16,18 +16,22 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Calendar App',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+    return BlocProvider(
+      create: (context) => TaskBloc(taskRepository: TaskRepository(),
       ),
-      home: RepositoryProvider(
-        create: (context) => TaskRepository(),
-        child: BlocProvider(
-          create: (context) =>
-              TaskBloc(taskRepository: context.read<TaskRepository>())
-                ..add(LoadTasks()), // Load tasks when the app starts
-          child: CalendarScreen(),
+      child: MaterialApp(
+        title: 'Flutter Calendar App',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        home: RepositoryProvider(
+          create: (context) => TaskRepository(),
+          child: BlocProvider(
+            create: (context) =>
+                TaskBloc(taskRepository: context.read<TaskRepository>())
+                  ..add(LoadTasks()),
+            child: CalendarScreen(),
+          ),
         ),
       ),
     );

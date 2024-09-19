@@ -5,7 +5,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class TaskDialog extends StatefulWidget {
   final Task? task;
-  const TaskDialog({this.task});
+  final VoidCallback? onEditComplete; // Added callback
+
+  const TaskDialog({this.task, this.onEditComplete}); // Modified constructor
 
   @override
   _TaskDialogState createState() => _TaskDialogState();
@@ -87,6 +89,7 @@ class _TaskDialogState extends State<TaskDialog> {
               context.read<TaskBloc>().add(AddTask(task));
             } else {
               context.read<TaskBloc>().add(UpdateTask(task));
+              widget.onEditComplete?.call(); // Call the callback if editing
             }
             Navigator.pop(context);
           },
@@ -96,7 +99,6 @@ class _TaskDialogState extends State<TaskDialog> {
     );
   }
 
-  // Helper method to select a date
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? pickedDate = await showDatePicker(
       context: context,

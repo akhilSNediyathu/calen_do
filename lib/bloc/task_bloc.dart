@@ -2,7 +2,6 @@ import 'package:calen_do/model/task_model.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../repositories/task_repository.dart';
 
-
 abstract class TaskEvent {}
 
 class LoadTasks extends TaskEvent {}
@@ -18,7 +17,7 @@ class UpdateTask extends TaskEvent {
 }
 
 class DeleteTask extends TaskEvent {
-  final String id;
+  final String id; // Change this to String to match with the repository method
   DeleteTask(this.id);
 }
 
@@ -57,6 +56,7 @@ class TaskBloc extends Bloc<TaskEvent, TaskState> {
   void _onAddTask(AddTask event, Emitter<TaskState> emit) async {
     try {
       await taskRepository.addTask(event.task);
+      add(LoadTasks()); // Reload tasks after adding a new one
     } catch (_) {
       emit(TaskError());
     }
@@ -65,6 +65,7 @@ class TaskBloc extends Bloc<TaskEvent, TaskState> {
   void _onUpdateTask(UpdateTask event, Emitter<TaskState> emit) async {
     try {
       await taskRepository.updateTask(event.task);
+      add(LoadTasks()); // Reload tasks after updating
     } catch (_) {
       emit(TaskError());
     }
@@ -73,6 +74,7 @@ class TaskBloc extends Bloc<TaskEvent, TaskState> {
   void _onDeleteTask(DeleteTask event, Emitter<TaskState> emit) async {
     try {
       await taskRepository.deleteTask(event.id);
+      add(LoadTasks()); // Reload tasks after deleting
     } catch (_) {
       emit(TaskError());
     }
