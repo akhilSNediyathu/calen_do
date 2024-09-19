@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "704336011311",
+    "project_id": "calendo-5ab41",
+    "storage_bucket": "calendo-5ab41.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:704336011311:android:7696b7904c8496635ce6da",
+        "android_client_info": {
+          "package_name": "com.example.calen_do"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBkBgpDg_ydOZ05KnNJbX217loWsX6ZBeI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
