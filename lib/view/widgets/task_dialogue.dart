@@ -2,8 +2,6 @@ import 'package:calen_do/bloc/task_bloc.dart';
 import 'package:calen_do/model/task_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
-
 
 class TaskDialog extends StatefulWidget {
   final Task? task;
@@ -50,14 +48,7 @@ class _TaskDialogState extends State<TaskDialog> {
             subtitle: Text(_selectedDate.toString().split(' ')[0]),
             trailing: Icon(Icons.calendar_today),
             onTap: () {
-              DatePicker.showDatePicker(context,
-                  showTitleActions: true,
-                  minTime: DateTime(2021, 1, 1),
-                  maxTime: DateTime(2101, 12, 31), onConfirm: (date) {
-                setState(() {
-                  _selectedDate = date;
-                });
-              }, currentTime: DateTime.now(), locale: LocaleType.en);
+              _selectDate(context);
             },
           ),
           DropdownButton<String>(
@@ -103,5 +94,21 @@ class _TaskDialogState extends State<TaskDialog> {
         ),
       ],
     );
+  }
+
+  // Helper method to select a date
+  Future<void> _selectDate(BuildContext context) async {
+    final DateTime? pickedDate = await showDatePicker(
+      context: context,
+      initialDate: _selectedDate,
+      firstDate: DateTime(2021, 1),
+      lastDate: DateTime(2101, 12),
+    );
+
+    if (pickedDate != null && pickedDate != _selectedDate) {
+      setState(() {
+        _selectedDate = pickedDate;
+      });
+    }
   }
 }
