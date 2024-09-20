@@ -1,19 +1,21 @@
 import 'package:calen_do/bloc/task_bloc.dart';
+import 'package:calen_do/bloc/task_event.dart';
 import 'package:calen_do/model/task_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class TaskDialog extends StatefulWidget {
   final Task? task;
-  final VoidCallback? onEditComplete; // Added callback
+  final VoidCallback? onEditComplete; 
 
-  const TaskDialog({this.task, this.onEditComplete}); // Modified constructor
+  const TaskDialog({super.key, this.task, this.onEditComplete}); 
 
   @override
-  _TaskDialogState createState() => _TaskDialogState();
+  
+  TaskDialogState createState() => TaskDialogState();
 }
 
-class _TaskDialogState extends State<TaskDialog> {
+class TaskDialogState extends State<TaskDialog> {
   final _titleController = TextEditingController();
   final _descriptionController = TextEditingController();
   DateTime _selectedDate = DateTime.now();
@@ -39,16 +41,16 @@ class _TaskDialogState extends State<TaskDialog> {
         children: [
           TextField(
             controller: _titleController,
-            decoration: InputDecoration(labelText: 'Task Title'),
+            decoration: const InputDecoration(labelText: 'Task Title'),
           ),
           TextField(
             controller: _descriptionController,
-            decoration: InputDecoration(labelText: 'Description'),
+            decoration: const InputDecoration(labelText: 'Description'),
           ),
           ListTile(
-            title: Text('Select Date:'),
+            title: const Text('Select Date:'),
             subtitle: Text(_selectedDate.toString().split(' ')[0]),
-            trailing: Icon(Icons.calendar_today),
+            trailing: const Icon(Icons.calendar_today),
             onTap: () {
               _selectDate(context);
             },
@@ -74,7 +76,7 @@ class _TaskDialogState extends State<TaskDialog> {
           onPressed: () {
             Navigator.pop(context);
           },
-          child: Text('Cancel'),
+          child: const Text('Cancel'),
         ),
         ElevatedButton(
           onPressed: () {
@@ -89,7 +91,7 @@ class _TaskDialogState extends State<TaskDialog> {
               context.read<TaskBloc>().add(AddTask(task));
             } else {
               context.read<TaskBloc>().add(UpdateTask(task));
-              widget.onEditComplete?.call(); // Call the callback if editing
+              widget.onEditComplete?.call(); 
             }
             Navigator.pop(context);
           },
