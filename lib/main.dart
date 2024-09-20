@@ -1,5 +1,6 @@
 import 'package:calen_do/bloc/task_bloc.dart';
 import 'package:calen_do/bloc/task_event.dart';
+import 'package:calen_do/view/calender_screen/screen_calender.dart';
 import 'package:calen_do/view/splash/screen_splash.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -8,7 +9,7 @@ import 'repositories/task_repository.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(); 
+  await Firebase.initializeApp();
   runApp(const MyApp());
 }
 
@@ -18,10 +19,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => TaskBloc(taskRepository: TaskRepository(),
+      create: (context) => TaskBloc(
+        taskRepository: TaskRepository(),
       ),
       child: MaterialApp(
-            debugShowCheckedModeBanner: false,
+        debugShowCheckedModeBanner: false,
         title: 'Flutter Calendar App',
         theme: ThemeData(
           primarySwatch: Colors.blue,

@@ -1,4 +1,5 @@
 import 'package:calen_do/bloc/task_bloc.dart';
+import 'package:calen_do/bloc/task_event.dart';
 import 'package:calen_do/bloc/task_state.dart';
 import 'package:calen_do/model/task_model.dart';
 import 'package:calen_do/utils/constants.dart';
@@ -19,11 +20,13 @@ class CalendarScreenState extends State<CalendarScreen> {
   CalendarFormat _calendarFormat = CalendarFormat.month;
   DateTime _focusedDay = DateTime.now();
   DateTime? _selectedDay;
- @override
+  @override
   void initState() {
     super.initState();
     _selectedDay = DateTime.now();
+    context.read<TaskBloc>().add(LoadTasks());
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -104,7 +107,14 @@ class CalendarScreenState extends State<CalendarScreen> {
   }
 
   Widget taskList() {
-    return BlocBuilder<TaskBloc, TaskState>(
+    return BlocConsumer<TaskBloc, TaskState>(
+      listener: (context, state) {
+        if(state is TaskLoaded){
+            setState(() {
+              
+            });
+        }
+      },
       builder: (context, state) {
         if (state is TaskLoaded) {
           final tasksForDay = state.tasks
