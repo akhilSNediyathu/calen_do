@@ -19,12 +19,16 @@ class CalendarScreenState extends State<CalendarScreen> {
   CalendarFormat _calendarFormat = CalendarFormat.month;
   DateTime _focusedDay = DateTime.now();
   DateTime? _selectedDay;
-
+ @override
+  void initState() {
+    super.initState();
+    _selectedDay = DateTime.now();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(homeTitle),
+      appBar: customAppBar(
+        title: homeTitle,
         actions: calendarFormatButtons(),
       ),
       body: Column(

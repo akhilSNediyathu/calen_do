@@ -61,3 +61,13 @@ Widget dismissBackground(Color color, IconData icon) {
       ),
     );
   }
+
+  AppBar customAppBar({
+  required String title,
+  List<Widget>? actions,
+}) {
+  return AppBar(
+    title: Text(title),
+    actions: actions,
+  );
+}
