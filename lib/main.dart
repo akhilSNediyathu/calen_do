@@ -1,6 +1,5 @@
 import 'package:calen_do/bloc/task_bloc.dart';
 import 'package:calen_do/bloc/task_event.dart';
-import 'package:calen_do/view/calender_screen/screen_calender.dart';
 import 'package:calen_do/view/splash/screen_splash.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
